@@ -19,6 +19,8 @@ namespace mirror {
         // Send log server the component name
         std::string componentNameMessage = "@ComponentName " + componentName + "\r\n";
         m_LogServerSocket.send(zmq::message_t(componentNameMessage), zmq::send_flags::none);
+
+        m_Configured = true;
     }
 
     void Logger::sendLogMessage(const std::string &logMessage) {
