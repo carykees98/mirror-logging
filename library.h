@@ -2,9 +2,8 @@
 
 #include <cstdint>
 #include <string>
-#include 
 
-namespace {
+namespace mirror {
     class Logger {
     public:
         // Constructors
