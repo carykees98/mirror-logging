@@ -1,5 +1,4 @@
-#ifndef MIRROR_LOGGING_LIBRARY_H
-#define MIRROR_LOGGING_LIBRARY_H
+#pragma once
 
 #include <cstdint>
 #include <string>
@@ -21,5 +20,3 @@ namespace {
         std::string m_componentName;
     };
 }
-
-#endif //MIRROR_LOGGING_LIBRARY_H
