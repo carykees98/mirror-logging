@@ -3,5 +3,7 @@ project(mirror_logging)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(mirror_logging logger.cpp)
+add_library(mirror_logging src/logger.cpp)
 target_link_libraries(mirror_logging zmq)
+target_include_directories(mirror_logging PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/include)
