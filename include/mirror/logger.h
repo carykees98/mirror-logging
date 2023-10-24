@@ -61,8 +61,19 @@ namespace mirror {
 
 
     private:
+        /**
+         * True if configure() has been run, false otherwise
+         */
         bool m_Configured;
+
+        /**
+         * socket used to communicate with the log server
+         */
         zmq::socket_t m_LogServerSocket;
+
+        /**
+         * context for m_LogServerSocket
+         */
         zmq::context_t m_SocketContext{1, 1};
 
         /**
