@@ -84,7 +84,7 @@ namespace mirror {
         /**
          * Sends line to log server so long as configure() has been called previously
          * @throws std::logic_error thrown if configure() hasn't been called previously
-         * @param logMessage Line to send to log server
+         * @param line Line to send to log server
          */
         void sendLine(const std::string &line);
 
