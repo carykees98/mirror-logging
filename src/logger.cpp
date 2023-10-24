@@ -64,6 +64,6 @@ namespace mirror {
             std::this_thread::sleep_for(15min);
         });
 
-        keepAlive.detatch();
+        keepAlive.detach();
     }
 }
