@@ -23,13 +23,6 @@ namespace mirror {
         static std::shared_ptr<Logger> getInstance();
 
         /**
-         * Sends message to log server so long as configure() has been called previously
-         * @throws std::logic_error thrown if configure() hasn't been called previously
-         * @param logMessage message to send to log server prefixed by logging level
-         */
-        void sendLogMessage(const std::string &logMessage);
-
-        /**
          * Configures Logger class, must be executed else program will shutdown
          * @param port Port that the log server is running on
          * @param componentName Name to be displayed along side log messages for identification
@@ -60,11 +53,17 @@ namespace mirror {
          */
         [[maybe_unused]] void fatal(const std::string &logMessage);
 
+        /**
+         * Sets this Logger's component name  
+         */
+        [[maybe_unused]] void setComponentName(const std::string &componentName);
+
 
     private:
         bool m_Configured;
         zmq::socket_t m_LogServerSocket;
         zmq::context_t m_SocketContext {1};
+        std::string m_RoutingID;
 
         /**
          * Available Log Levels
@@ -82,5 +81,11 @@ namespace mirror {
          */
         Logger() : m_Configured(false) {}
 
+        /**
+         * Sends line to log server so long as configure() has been called previously
+         * @throws std::logic_error thrown if configure() hasn't been called previously
+         * @param logMessage Line to send to log server
+         */
+        void sendLine(const std::string &line);
     };
 }
