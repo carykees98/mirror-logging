@@ -1,6 +1,5 @@
 #include <mirror/logger.h>
 
-#include <iostream>
 #include <exception>
 #include <string>
 #include <zmq.hpp>
