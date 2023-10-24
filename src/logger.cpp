@@ -47,7 +47,7 @@ namespace mirror {
         sendLine(std::to_string((int) LogLevels::Fatal) + logMessage);
     }
 
-    [[maybe_unused]] void Logger::setComponentName(const std::string &componentName) {
+    void Logger::setComponentName(const std::string &componentName) {
         sendLine("@ComponentName " + componentName);
     }
 }
