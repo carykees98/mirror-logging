@@ -57,7 +57,7 @@ namespace mirror {
          * Sets this Logger's component name  
          * @param componentName Name to be displayed along side log messages for identification
          */
-        void setComponentName(const std::string &componentName));
+        void setComponentName(const std::string &componentName);
 
 
     private:
