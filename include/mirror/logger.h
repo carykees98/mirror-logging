@@ -64,7 +64,6 @@ namespace mirror {
         bool m_Configured;
         zmq::socket_t m_LogServerSocket;
         zmq::context_t m_SocketContext {1};
-        std::string m_RoutingID;
 
         /**
          * Available Log Levels
