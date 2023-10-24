@@ -58,12 +58,12 @@ namespace mirror {
     [[noreturn]] void Logger::initializeKeepAliveThread() {
         using namespace std::chrono_literals;
 
-        std::thread keepAlive(
-        []() {
-            mirror::Logger::getInstance()->sendLine("@KeepAlive");
-            std::this_thread::sleep_for(15min);
-        });
-
-        keepAlive.detach();
+        std::thread(
+                []() {
+                    while (true) {
+                        mirror::Logger::getInstance()->sendLine("@KeepAlive");
+                        std::this_thread::sleep_for(15min);
+                    }
+                }).detach();
     }
 }
