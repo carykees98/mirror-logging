@@ -63,7 +63,7 @@ namespace mirror {
     private:
         bool m_Configured;
         zmq::socket_t m_LogServerSocket;
-        zmq::context_t m_SocketContext {1};
+        zmq::context_t m_SocketContext{1, 1};
 
         /**
          * Available Log Levels
@@ -88,6 +88,9 @@ namespace mirror {
          */
         void sendLine(const std::string &line);
 
+        /**
+         * Responsible for keeping the connection between the component and the log server alive during periods of reduced log traffic
+         */
         [[noreturn]] static void initializeKeepAliveThread();
     };
 }
