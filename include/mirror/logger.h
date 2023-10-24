@@ -57,7 +57,7 @@ namespace mirror {
          * Sets this Logger's component name  
          * @param componentName Name to be displayed along side log messages for identification
          */
-        void setComponentName(const std::string &componentName);
+        void setComponentName(const std::string &componentName));
 
 
     private:
@@ -87,5 +87,7 @@ namespace mirror {
          * @param logMessage Line to send to log server
          */
         void sendLine(const std::string &line);
+
+        [[noreturn]] static void initializeKeepAliveThread();
     };
 }

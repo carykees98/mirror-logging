@@ -4,6 +4,8 @@
 #include <exception>
 #include <string>
 #include <zmq.hpp>
+#include <thread>
+#include <chrono>
 
 namespace mirror {
     std::shared_ptr<Logger> Logger::getInstance() {
@@ -16,9 +18,11 @@ namespace mirror {
         m_LogServerSocket = zmq::socket_t(m_SocketContext, zmq::socket_type::stream);
         m_LogServerSocket.connect("tcp://localhost:" + std::to_string(port));
         m_Configured = true;
-        
+
         // Send log server the component name
         setComponentName(componentName);
+
+        initializeKeepAliveThread();
     }
 
     void Logger::sendLine(const std::string &line) {
@@ -40,7 +44,7 @@ namespace mirror {
     }
 
     [[maybe_unused]] void Logger::error(const std::string &logMessage) {
-        sendLine(std::to_string((int)LogLevels::Error) + logMessage);
+        sendLine(std::to_string((int) LogLevels::Error) + logMessage);
     }
 
     [[maybe_unused]] void Logger::fatal(const std::string &logMessage) {
@@ -49,5 +53,17 @@ namespace mirror {
 
     void Logger::setComponentName(const std::string &componentName) {
         sendLine("@ComponentName " + componentName);
+    }
+
+    [[noreturn]] void Logger::initializeKeepAliveThread() {
+        using namespace std::chrono_literals;
+
+        std::thread keepAlive(
+        []() {
+            mirror::Logger::getInstance()->sendLine("@KeepAlive");
+            std::this_thread::sleep_for(15min);
+        });
+
+        keepAlive.detatch();
     }
 }
