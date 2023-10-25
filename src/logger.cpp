@@ -32,12 +32,15 @@ namespace mirror {
         // if not configured throw exception, will likely end program unless wrapped in try catch
         if (!m_Configured) { throw std::logic_error("Error: Logger Not Configured"); }
 
-        // send message
-        socketMutex.lock();
-        std::string routingID = m_LogServerSocket.get(zmq::sockopt::routing_id);
-        m_LogServerSocket.send(zmq::message_t(routingID), zmq::send_flags::sndmore);
-        m_LogServerSocket.send(zmq::message_t(line + "\r\n"), zmq::send_flags::none);
-        socketMutex.unlock();
+        {
+            // lock mutex so that messages aren't sent simultaneously
+            std::lock_guard<std::mutex> lock(socketMutex);
+
+            // send message
+            std::string routingID = m_LogServerSocket.get(zmq::sockopt::routing_id);
+            m_LogServerSocket.send(zmq::message_t(routingID), zmq::send_flags::sndmore);
+            m_LogServerSocket.send(zmq::message_t(line + "\r\n"), zmq::send_flags::none);
+        }
     }
 
     [[maybe_unused]] void Logger::info(const std::string &logMessage) {
