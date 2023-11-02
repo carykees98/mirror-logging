@@ -25,7 +25,7 @@ namespace mirror {
         // Send log server the component name
         setComponentName(componentName);
 
-        initializeKeepAliveThread();
+        // initializeKeepAliveThread();
     }
 
     void Logger::sendLine(const std::string &line) {
@@ -40,7 +40,7 @@ namespace mirror {
             std::string routingID = m_LogServerSocket.get(zmq::sockopt::routing_id);
             m_LogServerSocket.send(zmq::message_t(routingID), zmq::send_flags::sndmore);
             m_LogServerSocket.send(zmq::message_t(line + "\r\n"), zmq::send_flags::none);
-        }
+        }l
     }
 
     [[maybe_unused]] void Logger::info(const std::string &logMessage) {
@@ -63,7 +63,7 @@ namespace mirror {
         sendLine("@ComponentName " + componentName);
     }
 
-    [[noreturn]] void Logger::initializeKeepAliveThread() {
+    /* [[noreturn]] void Logger::initializeKeepAliveThread() {
         using namespace std::chrono_literals;
 
         std::thread(
@@ -73,5 +73,5 @@ namespace mirror {
                         std::this_thread::sleep_for(15min);
                     }
                 }).detach();
-    }
+    } */
 }
