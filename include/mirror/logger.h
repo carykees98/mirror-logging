@@ -53,13 +53,6 @@ namespace mirror {
          */
         [[maybe_unused]] void fatal(const std::string &logMessage);
 
-        /**
-         * Sets this Logger's component name  
-         * @param componentName Name to be displayed along side log messages for identification
-         */
-        void setComponentName(const std::string &componentName);
-
-
     private:
         /**
          * True if configure() has been run, false otherwise
@@ -98,6 +91,12 @@ namespace mirror {
          * @param line Line to send to log server
          */
         void sendLine(const std::string &line);
+
+        /**
+         * Sets this Logger's component name
+         * @param componentName Name to be displayed along side log messages for identification
+         */
+        void setComponentName(const std::string &componentName);
 
         /**
          * Responsible for keeping the connection between the component and the log server alive during periods of reduced log traffic
