@@ -69,7 +69,7 @@ namespace mirror {
         /**
          * context for m_LogServerSocket
          */
-        zmq::context_t m_SocketContext{1, 1};
+        zmq::context_t m_SocketContext;
 
         /**
          * Available Log Levels
@@ -85,7 +85,10 @@ namespace mirror {
         /**
          * Default constructor. Kept private so that the class may be used as a singleton.
          */
-        Logger() : m_Configured(false) {}
+        Logger() :
+                m_Configured(false),
+                m_SocketContext(1, 1),
+                m_LogServerSocket(m_SocketContext, zmq::socket_type::stream) {}
 
         /**
          * Sends line to log server so long as configure() has been called previously

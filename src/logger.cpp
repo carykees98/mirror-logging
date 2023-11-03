@@ -18,7 +18,6 @@ namespace mirror {
 
     void Logger::configure(uint16_t port, const std::string &componentName) {
         // Initialize connection to log server
-        m_LogServerSocket = zmq::socket_t(m_SocketContext, zmq::socket_type::stream);
         m_LogServerSocket.connect("tcp://localhost:" + std::to_string(port));
         m_Configured = true;
 
