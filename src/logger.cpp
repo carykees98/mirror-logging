@@ -11,8 +11,8 @@ namespace mirror {
     //mutex used to prevent race conditions when sending messages to the log server
     std::mutex socketMutex;
 
-    std::shared_ptr<Logger> Logger::getInstance() {
-        static std::shared_ptr<Logger> logger(new Logger());
+    Logger& Logger::getInstance() {
+        static Logger logger;
         return logger;
     }
 

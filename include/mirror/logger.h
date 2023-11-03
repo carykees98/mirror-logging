@@ -20,7 +20,7 @@ namespace mirror {
          * Allows for access to the singleton instance of the Logger class
          * @return instance of Logger class
          */
-        static std::shared_ptr<Logger> getInstance();
+        static Logger& getInstance();
 
         /**
          * Configures Logger class, must be executed else program will shutdown
