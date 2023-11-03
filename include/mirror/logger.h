@@ -16,13 +16,13 @@ namespace mirror {
 
         Logger(Logger &) = delete;
 
-        ~Logger() = default;
+        ~Logger() { m_LogServerSocket.close(); }
 
         /**
          * Allows for access to the singleton instance of the Logger class
          * @return instance of Logger class
          */
-        static Logger& getInstance();
+        static Logger &getInstance();
 
         /**
          * Configures Logger class, must be executed else program will shutdown
