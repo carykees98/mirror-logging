@@ -101,6 +101,6 @@ namespace mirror {
         /**
          * Responsible for keeping the connection between the component and the log server alive during periods of reduced log traffic
          */
-        // [[noreturn]] static void initializeKeepAliveThread();
+        static void initializeKeepAliveThread();
     };
 }

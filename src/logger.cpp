@@ -25,7 +25,7 @@ namespace mirror {
         // Send log server the component name
         setComponentName(componentName);
 
-        // initializeKeepAliveThread();
+        initializeKeepAliveThread();
     }
 
     void Logger::sendLine(const std::string &line) {
@@ -60,7 +60,7 @@ namespace mirror {
         sendLine("@ComponentName " + componentName);
     }
 
-    /* [[noreturn]] void Logger::initializeKeepAliveThread() {
+    void Logger::initializeKeepAliveThread() {
         using namespace std::chrono_literals;
 
         std::thread(
@@ -70,5 +70,5 @@ namespace mirror {
                         std::this_thread::sleep_for(15min);
                     }
                 }).detach();
-    } */
+    }
 }
