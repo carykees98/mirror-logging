@@ -66,7 +66,7 @@ namespace mirror {
         std::thread(
                 []() {
                     while (true) {
-                        mirror::Logger::getInstance()->sendLine("@KeepAlive");
+                        mirror::Logger::getInstance().sendLine("@KeepAlive");
                         std::this_thread::sleep_for(15min);
                     }
                 }).detach();
