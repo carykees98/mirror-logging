@@ -16,6 +16,8 @@ namespace mirror {
 
         Logger(Logger &) = delete;
 
+        ~Logger() = default;
+
         /**
          * Allows for access to the singleton instance of the Logger class
          * @return instance of Logger class
