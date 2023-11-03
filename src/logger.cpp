@@ -1,6 +1,5 @@
 #include <mirror/logger.h>
 
-#include <exception>
 #include <string>
 #include <zmq.hpp>
 #include <thread>
@@ -18,7 +17,8 @@ namespace mirror {
 
     void Logger::configure(uint16_t port, const std::string &componentName) {
         // Initialize connection to log server
-        m_LogServerSocket.connect("tcp://localhost:" + std::to_string(port));
+        const std::string address = "tcp://localhost" + std::to_string(port);
+        m_LogServerSocket.connect(address);
         m_Configured = true;
 
         // Send log server the component name
