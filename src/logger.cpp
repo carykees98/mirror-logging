@@ -11,6 +11,11 @@
 
 namespace mirror {
 
+    // Static Member Initializations
+    zmq::context_t Logger::s_SocketContext(1, 1);
+    Logger *Logger::s_Instance = nullptr;
+    std::mutex Logger::s_AccessMutex;
+
     /*
      * Start Of Public Functions
      */
