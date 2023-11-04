@@ -50,8 +50,8 @@ namespace mirror {
     void Logger::configure(uint16_t port, const std::string &componentName, const std::string &address) {
         std::lock_guard<std::mutex> instanceLock(s_AccessMutex);
 
-        std::string url = "tcp://" + address + ":" + std::to_string(port);
-        m_LogServerSocket.connect(url);
+        m_URL = "tcp://" + address + ":" + std::to_string(port);
+        m_LogServerSocket.connect(m_URL);
 
         m_Configured = true;
         m_ComponentName = componentName;

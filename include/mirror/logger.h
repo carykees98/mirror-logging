@@ -21,12 +21,12 @@ namespace mirror {
 
         Logger(Logger &&) = delete;
 
-        bool operator=(const Logger &) = delete;
+        Logger& operator=(const Logger &) = delete;
 
-        bool operator=(const Logger &&) = delete;
+        Logger& operator=(const Logger &&) = delete;
 
         // Destructor
-        ~Logger() { m_LogServerSocket.close(); }
+        ~Logger() { m_LogServerSocket.disconnect(m_URL); }
 
         // Instance Fetch Method
         static Logger *getInstance();
@@ -48,12 +48,14 @@ namespace mirror {
 
     private: // Functions
         void f_SendLine(const std::string &lineToSend);
+
         static void f_initializeKeepAliveThread();
 
     private: // Data
         static Logger *s_Instance;
 
         zmq::socket_t m_LogServerSocket{socketContext, zmq::socket_type::stream};
+        std::string m_URL;
         bool m_Configured;
 
         std::string m_ComponentName;
