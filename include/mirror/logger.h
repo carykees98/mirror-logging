@@ -8,6 +8,9 @@
 #include <zmq.hpp>
 
 namespace mirror {
+
+    zmq::context_t socketContext(1, 1);
+
     /**
      * Singleton class to be used when logging in projects associated with the Clarkson Open Source Institute's Mirror
      */
@@ -50,8 +53,7 @@ namespace mirror {
     private: // Data
         static Logger *s_Instance;
 
-        zmq::socket_t m_LogServerSocket{s_SocketContext, zmq::socket_type::stream};
-        static zmq::context_t s_SocketContext;
+        zmq::socket_t m_LogServerSocket{socketContext, zmq::socket_type::stream};
         bool m_Configured;
 
         std::string m_ComponentName;
