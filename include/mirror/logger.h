@@ -9,7 +9,7 @@
 
 namespace mirror {
 
-    zmq::context_t socketContext(1, 1);
+    extern zmq::context_t socketContext;
 
     /**
      * Singleton class to be used when logging in projects associated with the Clarkson Open Source Institute's Mirror
