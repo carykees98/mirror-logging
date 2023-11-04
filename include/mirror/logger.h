@@ -22,6 +22,9 @@ namespace mirror {
 
         bool operator=(const Logger &&) = delete;
 
+        // Destructor
+        ~Logger() { m_LogServerSocket.close(); }
+
         // Instance Fetch Method
         static Logger *getInstance();
 
@@ -39,8 +42,6 @@ namespace mirror {
 
     protected: // Functions
         Logger() : m_Configured(false) {}
-
-        ~Logger() { m_LogServerSocket.close(); }
 
     private: // Functions
         void f_SendLine(const std::string &lineToSend);
