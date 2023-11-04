@@ -2,6 +2,7 @@
 #include <mirror/logger.h>
 
 // std includes
+#include <memory>
 #include <mutex>
 #include <string>
 #include <thread>
@@ -56,7 +57,7 @@ namespace mirror {
         m_Configured = true;
         m_ComponentName = componentName;
 
-        f_initializeKeepAliveThread();
+        m_KeepAliveThread = f_initializeKeepAliveThread();
     }
 
     /*
@@ -66,25 +67,24 @@ namespace mirror {
     void Logger::f_SendLine(const std::string &lineToSend) {
         std::lock_guard<std::mutex> instanceGuard(s_AccessMutex);
 
-        if (!m_Configured) throw std::logic_error("Logger not configured");
+        if (!m_Configured)
+            throw std::logic_error("Logger not configured");
 
         std::string routingID = m_LogServerSocket.get(zmq::sockopt::routing_id);
         m_LogServerSocket.send(zmq::message_t(routingID), zmq::send_flags::sndmore);
         m_LogServerSocket.send(zmq::message_t(lineToSend + "\r\n"), zmq::send_flags::none);
     }
 
-
-    void Logger::f_initializeKeepAliveThread() {
+    std::thread Logger::f_initializeKeepAliveThread() {
         using namespace std::chrono_literals;
 
-        std::thread(
+        return std::thread(
                 []() {
                     while (true) {
                         Logger::getInstance()->f_SendLine("@KeepAlive");
                         std::this_thread::sleep_for(15min);
                     }
-                }
-        ).detach();
+                });
     }
 
 } // namespace mirror

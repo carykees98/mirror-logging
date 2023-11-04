@@ -1,8 +1,10 @@
 #pragma once
 
 // std Includes
+#include <memory>
 #include <mutex>
 #include <string>
+#include <thread>
 
 // Library Includes
 #include <zmq.hpp>
@@ -21,12 +23,9 @@ namespace mirror {
 
         Logger(Logger &&) = delete;
 
-        Logger& operator=(const Logger &) = delete;
+        Logger &operator=(const Logger &) = delete;
 
-        Logger& operator=(const Logger &&) = delete;
-
-        // Destructor
-        ~Logger() { m_LogServerSocket.disconnect(m_URL); }
+        Logger &operator=(const Logger &&) = delete;
 
         // Instance Fetch Method
         static Logger *getInstance();
@@ -44,12 +43,17 @@ namespace mirror {
         void configure(uint16_t port, const std::string &componentName, const std::string &address = "localhost");
 
     protected: // Functions
-        Logger() : m_Configured(false) {}
+        Logger() : m_Configured(false) { std::atexit([]() { Logger::getInstance()->~Logger(); });  }
+
+        // Destructor
+        ~Logger() {
+            m_LogServerSocket.disconnect(m_URL);
+        }
 
     private: // Functions
         void f_SendLine(const std::string &lineToSend);
 
-        static void f_initializeKeepAliveThread();
+        static std::thread f_initializeKeepAliveThread();
 
     private: // Data
         static Logger *s_Instance;
@@ -60,10 +64,14 @@ namespace mirror {
 
         std::string m_ComponentName;
 
+        std::thread m_KeepAliveThread;
         static std::mutex s_AccessMutex;
 
         enum class LogLevels : int {
-            Info, Warn, Error, Fatal
+            Info,
+            Warn,
+            Error,
+            Fatal
         };
 
     }; // class Logger
