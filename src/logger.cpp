@@ -56,8 +56,6 @@ namespace mirror {
 
         m_Configured = true;
         m_ComponentName = componentName;
-
-        m_KeepAliveThread = f_initializeKeepAliveThread();
     }
 
     /*
@@ -73,18 +71,6 @@ namespace mirror {
         std::string routingID = m_LogServerSocket.get(zmq::sockopt::routing_id);
         m_LogServerSocket.send(zmq::message_t(routingID), zmq::send_flags::sndmore);
         m_LogServerSocket.send(zmq::message_t(lineToSend + "\r\n"), zmq::send_flags::none);
-    }
-
-    std::thread Logger::f_initializeKeepAliveThread() {
-        using namespace std::chrono_literals;
-
-        return std::thread(
-                []() {
-                    while (true) {
-                        Logger::getInstance()->f_SendLine("@KeepAlive");
-                        std::this_thread::sleep_for(15min);
-                    }
-                });
     }
 
 } // namespace mirror

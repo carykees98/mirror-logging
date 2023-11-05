@@ -53,8 +53,6 @@ namespace mirror {
     private: // Functions
         void f_SendLine(const std::string &lineToSend);
 
-        static std::thread f_initializeKeepAliveThread();
-
     private: // Data
         static Logger *s_Instance;
 
@@ -63,8 +61,7 @@ namespace mirror {
         bool m_Configured;
 
         std::string m_ComponentName;
-
-        std::thread m_KeepAliveThread;
+        
         static std::mutex s_AccessMutex;
 
         enum class LogLevels : int {
