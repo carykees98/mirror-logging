@@ -78,7 +78,7 @@ namespace mirror {
         std::string routingID = m_LogServerSocket.get(zmq::sockopt::routing_id);
         m_LogServerSocket.send(zmq::message_t(routingID), zmq::send_flags::sndmore);
 
-        zmq::message_t message {"@" + m_ComponentName + lineToSend + "\r\n"};
+        zmq::message_t message{"@" + m_ComponentName + lineToSend + "\r\n"};
         m_LogServerSocket.send(message, zmq::send_flags::none);
     }
 
