@@ -151,9 +151,21 @@ namespace mirror {
          * Available log levels, used to increase readability in the log methods
          */
         enum class LogLevels : int {
+            /**
+             * LogLevels::Info
+             */
             Info,
+            /**
+             * LogLevels::Warn
+             */
             Warn,
+            /**
+             * LogLevels::Error
+             */
             Error,
+            /**
+             * LogLevels::Fatal
+             */
             Fatal
         };
 
