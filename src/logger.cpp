@@ -33,22 +33,22 @@ namespace mirror {
     }
 
     [[maybe_unused]] void Logger::info(const std::string &logMessage) {
-        std::string lineToSend = "@" + std::to_string((int) LogLevels::Info) + ":" + logMessage;
+        std::string lineToSend = "@" + std::to_string((int) LogLevels::Info) + logMessage;
         f_SendLine(lineToSend);
     }
 
     [[maybe_unused]] void Logger::warn(const std::string &logMessage) {
-        std::string lineToSend = "@" + std::to_string((int) LogLevels::Warn) + ":" + logMessage;
+        std::string lineToSend = "@" + std::to_string((int) LogLevels::Warn) + logMessage;
         f_SendLine(lineToSend);
     }
 
     [[maybe_unused]] void Logger::error(const std::string &logMessage) {
-        std::string lineToSend = "@" + std::to_string((int) LogLevels::Error) + ":" + logMessage;
+        std::string lineToSend = "@" + std::to_string((int) LogLevels::Error) + logMessage;
         f_SendLine(lineToSend);
     }
 
     [[maybe_unused]] void Logger::fatal(const std::string &logMessage) {
-        std::string lineToSend = "@" + std::to_string((int) LogLevels::Fatal) + ":" + logMessage;
+        std::string lineToSend = "@" + std::to_string((int) LogLevels::Fatal) + logMessage;
         f_SendLine(lineToSend);
     }
 
