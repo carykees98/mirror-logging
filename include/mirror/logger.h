@@ -135,7 +135,9 @@ namespace mirror {
         std::string m_URL;
 
         /**
-         * False until `configure()` is run. If false, will cause program shutdown if an attempt is made to send a line to the log server
+         * False until `configure()` is run.
+         *
+         * If false, will cause program shutdown if an attempt is made to send a line to the log server
          */
         bool m_Configured;
 
