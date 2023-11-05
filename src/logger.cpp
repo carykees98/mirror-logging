@@ -33,19 +33,23 @@ namespace mirror {
     }
 
     [[maybe_unused]] void Logger::info(const std::string &logMessage) {
-        f_SendLine(std::to_string((int) LogLevels::Info) + logMessage);
+        std::string lineToSend = "@" + std::to_string((int) LogLevels::Info) + ":" + logMessage;
+        f_SendLine(lineToSend);
     }
 
     [[maybe_unused]] void Logger::warn(const std::string &logMessage) {
-        f_SendLine(std::to_string((int) LogLevels::Warn) + logMessage);
+        std::string lineToSend = "@" + std::to_string((int) LogLevels::Warn) + ":" + logMessage;
+        f_SendLine(lineToSend);
     }
 
     [[maybe_unused]] void Logger::error(const std::string &logMessage) {
-        f_SendLine(std::to_string((int) LogLevels::Error) + logMessage);
+        std::string lineToSend = "@" + std::to_string((int) LogLevels::Error) + ":" + logMessage;
+        f_SendLine(lineToSend);
     }
 
     [[maybe_unused]] void Logger::fatal(const std::string &logMessage) {
-        f_SendLine(std::to_string((int) LogLevels::Fatal) + logMessage);
+        std::string lineToSend = "@" + std::to_string((int) LogLevels::Fatal) + ":" + logMessage;
+        f_SendLine(lineToSend);
     }
 
     void Logger::configure(uint16_t port, const std::string &componentName, const std::string &address) {
@@ -70,7 +74,9 @@ namespace mirror {
 
         std::string routingID = m_LogServerSocket.get(zmq::sockopt::routing_id);
         m_LogServerSocket.send(zmq::message_t(routingID), zmq::send_flags::sndmore);
-        m_LogServerSocket.send(zmq::message_t(lineToSend + "\r\n"), zmq::send_flags::none);
+
+        zmq::message_t message {"@" + m_ComponentName + lineToSend + "\r\n"};
+        m_LogServerSocket.send(message, zmq::send_flags::none);
     }
 
 } // namespace mirror

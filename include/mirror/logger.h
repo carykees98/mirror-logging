@@ -61,7 +61,7 @@ namespace mirror {
         bool m_Configured;
 
         std::string m_ComponentName;
-        
+
         static std::mutex s_AccessMutex;
 
         enum class LogLevels : int {
