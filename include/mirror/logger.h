@@ -31,6 +31,7 @@ namespace mirror {
         static Logger *getInstance();
 
         // Logging Methods
+
         [[maybe_unused]] void info(const std::string &logMessage);
 
         [[maybe_unused]] void warn(const std::string &logMessage);
@@ -43,7 +44,7 @@ namespace mirror {
         void configure(uint16_t port, const std::string &componentName, const std::string &address = "localhost");
 
     protected: // Functions
-        Logger() : m_Configured(false) { }
+        Logger() : m_Configured(false) { std::atexit([](){Logger::getInstance()->~Logger();}); }
 
         // Destructor
         ~Logger() {
