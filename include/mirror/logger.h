@@ -50,7 +50,7 @@ namespace mirror {
          *
          * @return Pointer to the Loggers static instance
          */
-        inline static Logger *getInstance();
+        static Logger *getInstance();
 
         // Logging Methods
         /**
@@ -58,28 +58,28 @@ namespace mirror {
          *
          * @param logMessage Information to be logged
          */
-        [[maybe_unused]] inline void info(const std::string &logMessage);
+        [[maybe_unused]] void info(const std::string &logMessage);
 
         /**
          * Sends a warning message to the log server
          *
          * @param logMessage Information to be logged
          */
-        [[maybe_unused]] inline void warn(const std::string &logMessage);
+        [[maybe_unused]]void warn(const std::string &logMessage);
 
         /**
          * Sends an error message to the log server
          *
          * @param logMessage Information to be logged
          */
-        [[maybe_unused]] inline void error(const std::string &logMessage);
+        [[maybe_unused]] void error(const std::string &logMessage);
 
         /**
          * Sends a fatal message to the log server
          *
          * @param logMessage Information to be logged
          */
-        [[maybe_unused]] inline void fatal(const std::string &logMessage);
+        [[maybe_unused]] void fatal(const std::string &logMessage);
 
         // Configuration
         /**
