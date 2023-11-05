@@ -2,7 +2,6 @@
 #include <mirror/logger.h>
 
 // std includes
-#include <memory>
 #include <mutex>
 #include <string>
 #include <thread>
