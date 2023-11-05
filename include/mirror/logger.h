@@ -50,7 +50,7 @@ namespace mirror {
          *
          * @return Pointer to the Loggers static instance
          */
-        static Logger *getInstance();
+        inline static Logger *getInstance();
 
         // Logging Methods
         /**
@@ -58,28 +58,28 @@ namespace mirror {
          *
          * @param logMessage Information to be logged
          */
-        [[maybe_unused]] void info(const std::string &logMessage);
+        [[maybe_unused]] inline void info(const std::string &logMessage);
 
         /**
          * Sends a warning message to the log server
          *
          * @param logMessage Information to be logged
          */
-        [[maybe_unused]] void warn(const std::string &logMessage);
+        [[maybe_unused]] inline void warn(const std::string &logMessage);
 
         /**
          * Sends an error message to the log server
          *
          * @param logMessage Information to be logged
          */
-        [[maybe_unused]] void error(const std::string &logMessage);
+        [[maybe_unused]] inline void error(const std::string &logMessage);
 
         /**
          * Sends a fatal message to the log server
          *
          * @param logMessage Information to be logged
          */
-        [[maybe_unused]] void fatal(const std::string &logMessage);
+        [[maybe_unused]] inline void fatal(const std::string &logMessage);
 
         // Configuration
         /**
@@ -97,13 +97,13 @@ namespace mirror {
         /**
          * Default constructor. Registers a function to be called upon program exit that calls the Logger destructor
          */
-        Logger() : m_Configured(false) { std::atexit([]() { Logger::getInstance()->~Logger(); }); }
+        inline Logger() : m_Configured(false) { std::atexit([]() { Logger::getInstance()->~Logger(); }); }
 
         // Destructor
         /**
          * Destructor for the Logger class. Disconnects from the log server upon being called
          */
-        ~Logger() { m_LogServerSocket.disconnect(m_URL); }
+        inline ~Logger() { m_LogServerSocket.disconnect(m_URL); }
 
     private: // Functions
         /**

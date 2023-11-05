@@ -22,7 +22,7 @@ namespace mirror {
      * Start Of Public Functions
      */
 
-    Logger *Logger::getInstance() {
+    inline Logger *Logger::getInstance() {
         std::lock_guard<std::mutex> instanceLock(s_AccessMutex);
 
         // If no instance exists, one is created
@@ -33,22 +33,22 @@ namespace mirror {
         return s_Instance;
     }
 
-    [[maybe_unused]] void Logger::info(const std::string &logMessage) {
+    [[maybe_unused]] inline void Logger::info(const std::string &logMessage) {
         std::string lineToSend = "@" + std::to_string((int) LogLevels::Info) + logMessage;
         f_SendLine(lineToSend);
     }
 
-    [[maybe_unused]] void Logger::warn(const std::string &logMessage) {
+    [[maybe_unused]] inline void Logger::warn(const std::string &logMessage) {
         std::string lineToSend = "@" + std::to_string((int) LogLevels::Warn) + logMessage;
         f_SendLine(lineToSend);
     }
 
-    [[maybe_unused]] void Logger::error(const std::string &logMessage) {
+    [[maybe_unused]] inline void Logger::error(const std::string &logMessage) {
         std::string lineToSend = "@" + std::to_string((int) LogLevels::Error) + logMessage;
         f_SendLine(lineToSend);
     }
 
-    [[maybe_unused]] void Logger::fatal(const std::string &logMessage) {
+    [[maybe_unused]] inline void Logger::fatal(const std::string &logMessage) {
         std::string lineToSend = "@" + std::to_string((int) LogLevels::Fatal) + logMessage;
         f_SendLine(lineToSend);
     }
