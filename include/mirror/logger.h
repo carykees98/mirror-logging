@@ -43,7 +43,7 @@ namespace mirror {
         void configure(uint16_t port, const std::string &componentName, const std::string &address = "localhost");
 
     protected: // Functions
-        Logger() : m_Configured(false) { std::atexit([]() { Logger::getInstance()->~Logger(); });  }
+        Logger() : m_Configured(false) { }
 
         // Destructor
         ~Logger() {
