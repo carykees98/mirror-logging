@@ -125,7 +125,7 @@ namespace mirror {
         static std::mutex s_AccessMutex;
 
         /**
-         * Socket used to communicate with the Log Server
+         * Socket used to communicate with the log server
          */
         zmq::socket_t m_LogServerSocket{socketContext, zmq::socket_type::stream};
 
