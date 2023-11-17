@@ -1,5 +1,5 @@
 // Header Being Defined
-#include <mirror/logger.h>
+#include <mirror/logger.hpp>
 
 // std includes
 #include <mutex>
