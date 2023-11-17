@@ -101,9 +101,9 @@ namespace mirror {
 
         // Destructor
         /**
-         * Destructor for the Logger class. Disconnects from the log server upon being called
+         * Destructor for the Logger class. Destroys the socket when called.
          */
-        inline ~Logger() { m_LogServerSocket.disconnect(m_URL); }
+        inline ~Logger() { m_LogServerSocket.close(); }
 
     private: // Functions
         /**
