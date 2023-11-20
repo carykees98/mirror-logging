@@ -92,7 +92,10 @@ namespace mirror {
          * @param address IP address of the machine that the log server is running on
          */
         void configure(uint16_t port, const std::string &componentName, const std::string &address = "localhost");
-
+        
+        /**
+         * Shuts down the socket and destroys the Logger.
+         */
         inline void close() { Logger::getInstance()->~Logger(); }
 
     protected: // Functions
