@@ -92,18 +92,23 @@ namespace mirror {
          * @param address IP address of the machine that the log server is running on
          */
         void configure(uint16_t port, const std::string &componentName, const std::string &address = "localhost");
+        
+        /**
+         * Shuts down the socket and destroys the Logger.
+         */
+        inline void close() { Logger::getInstance()->~Logger(); }
 
     protected: // Functions
         /**
-         * Default constructor. Registers a function to be called upon program exit that calls the Logger destructor
+         * Default constructor.
          */
-        inline Logger() : m_Configured(false) { std::atexit([]() { Logger::getInstance()->~Logger(); }); }
+        inline Logger() : m_Configured(false) {}
 
         // Destructor
         /**
-         * Destructor for the Logger class. Destroys the socket when called.
+         * Destructor for the Logger class. Destroys the socket and context when called.
          */
-        inline ~Logger() { m_LogServerSocket.close(); }
+        inline ~Logger() { m_LogServerSocket.close(); socketContext.shutdown(); }
 
     private: // Functions
         /**
