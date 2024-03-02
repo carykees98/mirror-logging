@@ -53,6 +53,15 @@ namespace mirror {
         static Logger *getInstance();
 
         // Logging Methods
+
+        /**
+         * Prints a debug event, but does not send it
+         * to the log server.
+         *
+         * @param logMessage Information to be logged
+         */
+        [[maybe_unused]] void debug(const std::string &logMessage);
+
         /**
          * Sends information to be logged to the log server
          *
@@ -117,6 +126,13 @@ namespace mirror {
          * @param lineToSend Message to send to the log server
          */
         void f_SendLine(const std::string &lineToSend);
+
+        /**
+         * Prints a log event to stdout.
+         * @param level_tag Level tag ( ex. [ DEBUG ] ) to prepend message with
+         * @param message Message to log
+         */
+        void printEvent(const char* level_tag, const std::string &message);
 
     private: // Data
         /**
